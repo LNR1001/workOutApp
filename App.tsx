@@ -8,6 +8,7 @@
 import * as React from 'react';
 import type {PropsWithChildren} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from 'react-native-screens/native-stack';
 
 import {
   SafeAreaView,
@@ -17,10 +18,8 @@ import {
   Text,
   useColorScheme,
   View,
-  Button,
-} from 'react-native';
-import {createNativeStackNavigator} from 'react-native-screens/native-stack';
-
+  Button, TextInput
+} from "react-native";
 // import {
 //   Colors,
 //   DebugInstructions,
@@ -37,9 +36,11 @@ const App = () => {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{title: 'Welcome'}}
+          options={{title: 'Welcome To Gym App'}}
         />
         <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="Gym" component={GymScreen} />
+        <Stack.Screen name="BMI" component={BmiScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -47,18 +48,86 @@ const App = () => {
 
 const HomeScreen = ({navigation}) => {
   return (
-    <Button
-      title="Go to Jane's profile"
-      onPress={() => navigation.navigate('Profile', {name: 'Jane'})
-      }
-    />
+    <>
+      <View style={styles.buffer}>
+        <Button
+          title="Go to Jane's profile"
+          onPress={() => navigation.navigate('Profile', {name: 'Jane'})}
+        />
+      </View>
+      <View style={styles.buffer}>
+        <Button
+          title={'Go to Gym'}
+          onPress={() => navigation.navigate('Gym')}
+        />
+      </View>
+    </>
   );
 };
 const ProfileScreen = ({navigation, route}) => {
-  return <Text>This is {route.params.name}'s profile</Text>;
+  return (
+    <>
+      <Button title="Go to gym" onPress={() => navigation.navigate('Gym')} />
+      <Text>This is {route.params.name}'s profile</Text>
+    </>
+  );
+};
+
+const GymScreen = ({navigation, route}) => {
+  return(
+    <SafeAreaView>
+      <Button title={'Gym App'} />
+      <View style={styles.buffer}>
+        <Button
+          title={'BMI Calculator'}
+          onPress={() => navigation.navigate('BMI')}
+        />
+      </View>
+    </SafeAreaView>
+  );
+};
+
+const BmiScreen = ({navigation}) => {
+  const [text, onChangeText] = React.useState('');
+  const handleTextChange = (inputText: string) => {
+    // Remove any non-numeric characters
+    const numericInput = inputText.replace(/[^0-9]/g, '');
+    onChangeText(numericInput);
+  };
+  return (
+    <SafeAreaView>
+      <TextInput
+        style={styles.textInput}
+        keyboardType={'numeric'}
+        onChangeText={handleTextChange}
+        value={text}
+        placeholder={'Please enter BMI'}
+      />
+    </SafeAreaView>
+  );
 };
 
 export default App;
+const styles = StyleSheet.create({
+  buffer: {
+    marginVertical: 10,
+  },
+  sectionTitle: {
+    fontSize: 24,
+    fontWeight: '600',
+  },
+  sectionDescription: {
+    marginTop: 8,
+    fontSize: 18,
+    fontWeight: '400',
+  },
+  highlight: {
+    fontWeight: '700',
+  },
+  textInput: {
+    fontSize: 24,
+  },
+});
 
 // function Section({children, title}: SectionProps): JSX.Element {
 //   const isDarkMode = useColorScheme() === 'dark';
