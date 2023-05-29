@@ -223,10 +223,11 @@ const WorkoutButton = ({buttonStyle, dotContainer}) => {
             <TextInput
               style={styles.modalSettingText}
               value={setLimit.toString()}
+              placeholder={'enter number'}
               onChangeText={text => {
                 const value = parseFloat(text);
                 if (!isNaN(value)) {
-                  setSetLimit(value);
+                  setSetLimit(value.toString);
                 }
               }}
               keyboardType="numeric"
@@ -239,6 +240,7 @@ const WorkoutButton = ({buttonStyle, dotContainer}) => {
               value={repLimit.toString()}
               onChangeText={text => setRepLimit(parseInt(text))}
               keyboardType="numeric"
+              placeholder={'enter number'}
             />
             <View style={styles.modalButtonContainer}>
               <Button title="Reset" onPress={handleReset} />
@@ -397,31 +399,37 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
-    backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 10,
+    backgroundColor: '#752BFD',
+    padding: 30,
+    borderRadius: 120,
   },
   modalText: {
-    fontSize: 18,
-    marginBottom: 10,
+    fontSize: 20,
+    left: 20,
+    // marginBottom: 10,
   },
   settingContainer: {
-    flexDirection: 'column',
+    // flexDirection: 'column',
+    left: 0,
+    bottom: -420,
+    backgroundColor: '#776893',
   },
   modalSettingContainer: {
     // flex: 1,
     // justifyContent: 'center',
     // alignItems: 'center',
-    flexDirection: 'row',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    // flexDirection: 'row',
+    //backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalSettingText: {
     fontSize: 18,
     bottom: 10,
+    left: 20,
   },
   modalButtonContainer: {
     flexDirection: 'row',
-    //justifyContent: 'space-around',
+    // padding: 10,
+    left: 60,
   },
   headerText: {
     fontSize: 20,
