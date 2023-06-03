@@ -109,7 +109,10 @@ const BmiScreen = ({navigation}) => {
 };
 const RoundedButton = ({title, onPress, imageSource, buttonStyle, onLongPress}) => {
   return (
-    <TouchableOpacity style={[styles.button, buttonStyle]} onPress={onPress} onLongPress={onLongPress}>
+    <TouchableOpacity
+      style={[styles.button, buttonStyle]}
+      onPress={onPress}
+      onLongPress={onLongPress}>
       <ImageBackground
         source={imageSource}
         style={styles.backgroundImage}
@@ -188,7 +191,7 @@ const WorkoutButton = ({buttonStyle, dotContainer}) => {
         title={'Bench Button'}
         onPress={handlePress}
         onLongPress={handleLongPress}
-        imageSource={require('C:\\Users\\Robert\\WebstormProjects\\workOutApp\\benchPress.png')}
+        imageSource={require('/Users/rv1001/reactNativeProjects/workOutApp/benchPress.png')}
         buttonStyle={buttonStyle}
       />
       <View style={dotContainer}>
