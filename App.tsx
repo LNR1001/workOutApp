@@ -90,20 +90,36 @@ const GymScreen = ({navigation, route}) => {
 
 const BmiScreen = ({navigation}) => {
   const [text, onChangeText] = React.useState('');
+  const [heightText, onChangeHeightText] = React.useState('');
+  const [weightText, onChangeWeightText] = React.useState('');
   const handleTextChange = (inputText: string) => {
     // Remove any non-numeric characters
     const numericInput = inputText.replace(/[^0-9]/g, '');
     onChangeText(numericInput);
+    onChangeHeightText(numericInput);
+    onChangeWeightText(numericInput);
   };
+  const bmiScore = ((weightText / (heightText ** 2)) * 703).toFixed(1);
   return (
     <SafeAreaView>
+      <View>
       <TextInput
         style={styles.textInput}
         keyboardType={'numeric'}
         onChangeText={handleTextChange}
         value={text}
-        placeholder={'Please enter BMI'}
-      />
+        placeholder={'Please enter height'}  
+        />
+      </View>
+      <View style={{paddingTop: 10}}>
+      <TextInput
+       style={styles.textInput}
+       keyboardType={'numeric'}
+       onChangeText={onChangeWeightText}
+       value={weightText}
+       placeholder={'Please enter weight'}
+        />
+      </View>
     </SafeAreaView>
   );
 };
