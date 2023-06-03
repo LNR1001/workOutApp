@@ -5,21 +5,22 @@
  * @format
  */
 
-import * as React from 'react';
+import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from 'react-native-screens/native-stack';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {
-  SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
   useColorScheme,
   View,
-  Button, TextInput
-} from "react-native";
+  Button,
+  TextInput,
+} from 'react-native';
 // import {
 //   Colors,
 //   DebugInstructions,
@@ -29,22 +30,6 @@ import {
 // } from 'react-native/Libraries/NewAppScreen';
 
 const Stack = createNativeStackNavigator();
-const App = () => {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{title: 'Welcome To Gym App'}}
-        />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
-        <Stack.Screen name="Gym" component={GymScreen} />
-        <Stack.Screen name="BMI" component={BmiScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-};
 
 const HomeScreen = ({navigation}) => {
   return (
@@ -74,7 +59,7 @@ const ProfileScreen = ({navigation, route}) => {
 };
 
 const GymScreen = ({navigation, route}) => {
-  return(
+  return (
     <SafeAreaView>
       <Button title={'Gym App'} />
       <View style={styles.buffer}>
@@ -88,21 +73,72 @@ const GymScreen = ({navigation, route}) => {
 };
 
 const BmiScreen = ({navigation}) => {
-  const [text, onChangeText] = React.useState('');
+  const [heightText, onChangeHeightText] = React.useState('');
+  const [weightText, onChangeWeightText] = React.useState('');
   const handleTextChange = (inputText: string) => {
     // Remove any non-numeric characters
     const numericInput = inputText.replace(/[^0-9]/g, '');
-    onChangeText(numericInput);
+    onChangeHeightText(numericInput);
+    onChangeWeightText(numericInput);
   };
+  const bmiScore = ((weightText / (heightText ** 2)) * 703).toFixed(1);
   return (
     <SafeAreaView>
+      <View>
       <TextInput
         style={styles.textInput}
         keyboardType={'numeric'}
-        onChangeText={handleTextChange}
-        value={text}
-        placeholder={'Please enter BMI'}
+        onChangeText={onChangeHeightText}
+        value={heightText}
+        placeholder={'Please enter height'}
       />
+      </View>
+      
+      <View style={{paddingTop: 10}}>
+      <TextInput
+       style={styles.textInput}
+       keyboardType={'numeric'}
+       onChangeText={onChangeWeightText}
+       value={weightText}
+       placeholder={'Please enter weight'}
+      />
+      </View>
+      <View>
+        <Text style ={{padding: 10, fontSize: 32}}>BMI score: {bmiScore}</Text>
+      </View>
+    </SafeAreaView>
+  );
+};
+
+// const BmiCalculator = (heightText,weightText) => {
+//   const bmiScore = (weightText / heightText ** 2) * 703
+//   return (
+//     <View>
+//       <Text style ={{padding: 10, fontSize: 32}}>{bmiScore}</Text>
+//     </View>
+//   );
+// };
+
+const App = () => {
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+              title: 'Welcome To Gym App',
+              headerStyle: {backgroundColor: '#7648c9'}, ///header background color
+              headerTintColor: 'white', ///header text color
+              contentStyle: {backgroundColor: '#7648c9'},
+            }}
+          />
+          <Stack.Screen name="Profile" component={ProfileScreen} />
+          <Stack.Screen name="Gym" component={GymScreen} />
+          <Stack.Screen name="BMI" component={BmiScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </SafeAreaView>
   );
 };
@@ -110,7 +146,10 @@ const BmiScreen = ({navigation}) => {
 export default App;
 const styles = StyleSheet.create({
   buffer: {
-    marginVertical: 10,
+    alignSelf: 'center',
+    top: 20,
+    // margin: 10,
+    padding: 10,
   },
   sectionTitle: {
     fontSize: 24,
@@ -126,6 +165,16 @@ const styles = StyleSheet.create({
   },
   textInput: {
     fontSize: 24,
+  },
+  safeArea: {
+    flex: 1,
+    // backgroundColor: '#0c0c0c',
+  },
+  container: {
+    // flex: 1,
+    // paddingHorizontal: 16,
+    // paddingTop: 16,
+    // backgroundColor: '#0c0c0c',
   },
 });
 
