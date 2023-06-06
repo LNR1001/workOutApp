@@ -106,8 +106,8 @@ const BmiScreen = ({navigation}) => {
       <TextInput
         style={styles.textInput}
         keyboardType={'numeric'}
-        onChangeText={handleTextChange}
-        value={text}
+        onChangeText={onChangeHeightText}
+        value={heightText}
         placeholder={'Please enter height'}  
         />
       </View>
@@ -119,6 +119,9 @@ const BmiScreen = ({navigation}) => {
        value={weightText}
        placeholder={'Please enter weight'}
         />
+      </View>
+      <View>
+        <Text style ={{padding: 10, fontSize: 32}}>BMI score: {bmiScore}</Text>
       </View>
     </SafeAreaView>
   );
@@ -207,7 +210,7 @@ const WorkoutButton = ({buttonStyle, dotContainer}) => {
         title={'Bench Button'}
         onPress={handlePress}
         onLongPress={handleLongPress}
-        imageSource={require('/Users/rv1001/reactNativeProjects/workOutApp/benchPress.png')}
+        imageSource={require('C:/Users/Fred/Desktop/workoutapp/workOutApp/benchPress.png')}
         buttonStyle={buttonStyle}
       />
       <View style={dotContainer}>
