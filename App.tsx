@@ -11,6 +11,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {SafeAreaView} from 'react-native-safe-area-context';
 // import Icon from 'react-native-vector-icons/Ionicons';
+import RoundButton from './RoundButton';
 
 import {
   ScrollView,
@@ -39,7 +40,6 @@ import {
 // } from 'react-native/Libraries/NewAppScreen';
 
 const Stack = createStackNavigator();
-
 const HomeScreen = ({navigation}) => {
   return (
     <View style={styles.container2}>
@@ -99,48 +99,37 @@ const BmiScreen = ({navigation}) => {
     onChangeHeightText(numericInput);
     onChangeWeightText(numericInput);
   };
-  const bmiScore = ((weightText / (heightText ** 2)) * 703).toFixed(1);
+  const bmiScore = ((weightText / heightText ** 2) * 703).toFixed(1);
   return (
     <SafeAreaView>
       <View>
-      <TextInput
-        style={styles.textInput}
-        keyboardType={'numeric'}
-        onChangeText={handleTextChange}
-        value={text}
-        placeholder={'Please enter height'}  
+        <TextInput
+          style={styles.textInput}
+          keyboardType={'numeric'}
+          onChangeText={onChangeHeightText}
+          value={heightText}
+          placeholder={'Please enter height'}
         />
       </View>
       <View style={{paddingTop: 10}}>
-      <TextInput
-       style={styles.textInput}
-       keyboardType={'numeric'}
-       onChangeText={onChangeWeightText}
-       value={weightText}
-       placeholder={'Please enter weight'}
+        <TextInput
+          style={styles.textInput}
+          keyboardType={'numeric'}
+          onChangeText={onChangeWeightText}
+          value={weightText}
+          placeholder={'Please enter weight'}
         />
+      </View>
+      <View>
+        <Text style={{padding: 10, fontSize: 32}}>BMI Score: {bmiScore}</Text>
       </View>
     </SafeAreaView>
   );
 };
-const RoundedButton = ({title, onPress, imageSource, buttonStyle, onLongPress}) => {
-  return (
-    <TouchableOpacity
-      style={[styles.button, buttonStyle]}
-      onPress={onPress}
-      onLongPress={onLongPress}>
-      <ImageBackground
-        source={imageSource}
-        style={styles.backgroundImage}
-        resizeMode={'cover'}>
-        {/*<Text style={styles.buttonText}>{title}</Text>*/}
-      </ImageBackground>
-    </TouchableOpacity>
-  );
-};
+
 const WorkoutButton = ({buttonStyle, dotContainer}) => {
   const [dots, setDots] = useState<{}[]>([]);
-  const [modalVisible, setModalVisible] = useState(false);//first modal
+  const [modalVisible, setModalVisible] = useState(false); //first modal
   const [settingModal, setSettingModal] = useState(false); //settings
   const [setsCount, setSetsCount] = useState(0);
   const [longPressOccurred, setLongPressOccurred] = useState(false);
@@ -203,11 +192,11 @@ const WorkoutButton = ({buttonStyle, dotContainer}) => {
         <Section label="Reps:" value={dots.length} />
         <Section label="Sets:" value={setsCount.valueOf()} />
       </View>
-      <RoundedButton
+      <RoundButton
         title={'Bench Button'}
         onPress={handlePress}
         onLongPress={handleLongPress}
-        imageSource={require('/Users/rv1001/reactNativeProjects/workOutApp/benchPress.png')}
+        imageSource={require('C:\\Users\\Robert\\WebstormProjects\\workOutApp\\benchPress.png')}
         buttonStyle={buttonStyle}
       />
       <View style={dotContainer}>
