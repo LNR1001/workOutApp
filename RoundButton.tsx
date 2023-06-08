@@ -1,10 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {ImageBackground, TouchableOpacity} from 'react-native';
-import {
-  StyleSheet,
-  Button,
-  View,
-} from 'react-native';
+import {StyleSheet, Button, View} from 'react-native';
 
 const RoundButton = ({
   title,
